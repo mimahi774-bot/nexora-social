@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6d5dfc">
+<title>NEXORA — Connect. Create. Earn.</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#191a2b;--muted:#777b91;--line:#e8e9f1;--brand:#6d5dfc;--brand2:#a855f7;--soft:#efedff}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0}
+.topbar{height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 max(18px,calc((100vw - 1160px)/2));background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.logo{font-size:23px;font-weight:900;letter-spacing:-1px;color:var(--brand)}.logo span{color:var(--text)}.top-actions{display:flex;gap:10px;align-items:center}
+.pill{border-radius:14px;padding:10px 15px;background:var(--soft);color:var(--brand);font-weight:700}.primary{background:linear-gradient(120deg,var(--brand),var(--brand2));color:white;border-radius:14px;padding:11px 16px;font-weight:800}
+.wrap{max-width:1160px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:220px minmax(0,1fr) 260px;gap:22px}
+.panel,.card{background:var(--card);border:1px solid var(--line);border-radius:20px}
+.sidebar{padding:14px;height:max-content;position:sticky;top:88px}.navbtn{display:flex;align-items:center;gap:12px;width:100%;padding:13px;border-radius:13px;background:transparent;text-align:left;color:var(--muted);font-weight:750;margin:3px 0}.navbtn.active,.navbtn:hover{background:var(--soft);color:var(--brand)}
+.small-note{font-size:12px;color:var(--muted);line-height:1.5;margin:16px 8px}
+.main{min-width:0}.welcome{padding:20px 22px;margin-bottom:16px;background:linear-gradient(120deg,#272047,#6d5dfc);color:#fff;border:0}.welcome h1{font-size:25px;margin:0 0 7px}.welcome p{margin:0;color:#e5e0ff}
+.composer{padding:16px;margin-bottom:16px}.compose-row{display:flex;gap:11px;align-items:flex-start}.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:linear-gradient(140deg,#6d5dfc,#f0abfc);color:#fff;font-weight:900}.compose-fields{flex:1;min-width:0}.compose-fields textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px;resize:vertical;min-height:72px;outline-color:var(--brand)}.compose-bottom{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:10px}.compose-bottom input{max-width:58%;font-size:12px;color:var(--muted)}
+.post{padding:18px;margin-bottom:14px}.post-head{display:flex;gap:11px;align-items:center}.person{font-weight:850}.handle{font-size:12px;color:var(--muted);margin-top:2px}.post-time{margin-left:auto;font-size:12px;color:var(--muted)}.post-text{white-space:pre-wrap;line-height:1.55;margin:16px 0}.tag{display:inline-block;background:#f1efff;color:#6554df;padding:5px 9px;border-radius:9px;font-size:12px;font-weight:750;margin-right:5px}.post-actions{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:12px}.action{padding:8px 11px;background:#f7f7fb;border-radius:11px;color:#666b80;font-weight:700}.action.liked{background:#ffeaf0;color:#d52f68}
+.rightcol .panel{padding:17px;margin-bottom:15px}.rightcol h3{margin:0 0 13px;font-size:16px}.trend{padding:10px 0;border-bottom:1px solid var(--line)}.trend:last-child{border:0}.trend small{display:block;color:var(--muted);margin-top:3px}.earning{background:linear-gradient(145deg,#f1edff,#fff);border-color:#e2dcff!important}.earning strong{display:block;font-size:24px;color:var(--brand);margin:7px 0}.muted{color:var(--muted);font-size:13px;line-height:1.5}
+.view-title{font-size:24px;margin:0 0 15px}.empty{text-align:center;padding:35px;color:var(--muted)}.profile-head{padding:24px;margin-bottom:16px}.profile-banner{height:90px;border-radius:15px;background:linear-gradient(120deg,#6d5dfc,#e879f9);margin-bottom:-28px}.profile-info{display:flex;gap:13px;align-items:end;padding:0 10px}.profile-info .avatar{width:64px;height:64px;border:4px solid white}.profile-info h2{margin:0}.profile-info p{margin:4px 0;color:var(--muted);font-size:13px}
+.mobile-nav{display:none}
+footer{max-width:1160px;margin:0 auto;padding:10px 16px 30px;text-align:center;color:var(--muted);font-size:12px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#24213d;color:white;padding:12px 18px;border-radius:13px;display:none;z-index:10;box-shadow:0 8px 30px #0002}
+@media(max-width:900px){.wrap{grid-template-columns:190px minmax(0,1fr)}.rightcol{display:none}}
+@media(max-width:620px){.topbar{height:60px;padding:0 14px}.top-actions .pill{display:none}.wrap{display:block;margin:14px auto;padding:0 11px}.sidebar{display:none}.welcome{padding:18px}.welcome h1{font-size:22px}.mobile-nav{position:fixed;bottom:0;left:0;right:0;z-index:6;display:flex;justify-content:space-around;background:#fff;border-top:1px solid var(--line);padding:8px 3px calc(8px + env(safe-area-inset-bottom))}.mobile-nav button{background:transparent;color:var(--muted);font-size:11px;display:grid;gap:3px;justify-items:center;padding:4px}.mobile-nav button.active{color:var(--brand);font-weight:900}.mobile-nav b{font-size:19px}footer{padding-bottom:85px}.compose-bottom{align-items:flex-end}.compose-bottom input{max-width:48%}.post{padding:15px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo">NEXORA<span>.</span></div>
+  <div class="top-actions"><button class="pill" onclick="showView('discover')">Explore</button><button class="primary" onclick="focusComposer()">＋ Create</button></div>
+</header>
+<div class="wrap">
+  <aside class="sidebar panel">
+    <button class="navbtn active" data-view="home" onclick="showView('home')">🏠 <span>Home Feed</span></button>
+    <button class="navbtn" data-view="discover" onclick="showView('discover')">🔎 <span>Discover</span></button>
+    <button class="navbtn" data-view="rooms" onclick="showView('rooms')">🌐 <span>Circle Rooms</span></button>
+    <button class="navbtn" data-view="messages" onclick="showView('messages')">💬 <span>Messages</span></button>
+    <button class="navbtn" data-view="earn" onclick="showView('earn')">💎 <span>Creator Hub</span></button>
+    <button class="navbtn" data-view="profile" onclick="showView('profile')">👤 <span>My Profile</span></button>
+    <div class="small-note">A new space to connect, create and grow. Your posts in this demo are saved only in this browser.</div>
+  </aside>
+  <main class="main" id="main">
+    <section class="card welcome"><h1>Your world. Your people. Your next move.</h1><p>Connect with people who share your interests — and turn your skills into opportunities.</p></section>
+    <section class="card composer" id="composer">
+      <div class="compose-row"><div class="avatar">N</div><div class="compose-fields">
+        <textarea id="postText" placeholder="What would you like to share with your circle?"></textarea>
+        <div class="compose-bottom"><input id="postTags" placeholder="Add topic (e.g. design, learning)"><button class="primary" onclick="createPost()">Publish post</button></div>
+      </div></div>
+    </section>
+    <div id="viewContent"></div>
+  </main>
+  <aside class="rightcol">
+    <section class="panel"><h3>🔥 Discover topics</h3><div class="trend">#CreatorEconomy<small>Skills, projects & creator tips</small></div><div class="trend">#LearnTogether<small>Study groups and resources</small></div><div class="trend">#BuildInPublic<small>Share what you're making</small></div></section>
+    <section class="panel earning"><h3>💎 Creator Hub</h3><div class="muted">Build your portfolio and prepare to offer services. Payments are not enabled in this demo.</div><strong>₹0.00</strong><div class="muted">Demo earnings balance</div><button class="primary" style="width:100%;margin-top:13px" onclick="showView('earn')">Explore earning tools</button></section>
+    <section class="panel"><h3>🌱 Community first</h3><div class="muted">Be kind, protect your privacy and only share content you have permission to post.</div></section>
+  </aside>
+</div>
+<nav class="mobile-nav">
+  <button class="active" data-view="home" onclick="showView('home')"><b>⌂</b>Home</button>
+  <button data-view="discover" onclick="showView('discover')"><b>⌕</b>Discover</button>
+  <button onclick="focusComposer()"><b>＋</b>Create</button>
+  <button data-view="messages" onclick="showView('messages')"><b>▤</b>Chats</button>
+  <button data-view="profile" onclick="showView('profile')"><b>◉</b>Profile</button>
+</nav>
+<footer>NEXORA MVP · Free prototype · Not connected to a live server or payment provider</footer>
+<div class="toast" id="toast"></div>
+<script>
+const seedPosts = [
+ {id:1,name:"Ava Morgan",handle:"@avamakes",time:"2h ago",text:"Building a community where your skills matter more than follower counts. What are you learning this week?",tag:"BuildInPublic",likes:18,liked:false,comments:3},
+ {id:2,name:"Rohan Patel",handle:"@rohanlearns",time:"4h ago",text:"Small reminder: you don't need a perfect plan to start. Share your progress, meet collaborators, and improve as you go.",tag:"LearnTogether",likes:12,liked:false,comments:2},
+ {id:3,name:"Nia Chen",handle:"@niacreates",time:"Yesterday",text:"Looking to collaborate with a designer and a video editor on a beginner-friendly creator project. Drop your skill below!",tag:"CreatorEconomy",likes:27,liked:false,comments:6}
+];
+let posts = JSON.parse(localStorage.getItem("nexora_posts") || "null") || seedPosts;
+let currentView = "home";
+function save(){localStorage.setItem("nexora_posts",JSON.stringify(posts))}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function postCard(p){return `<article class="card post"><div class="post-head"><div class="avatar">${esc(p.name[0])}</div><div><div class="person">${esc(p.name)}</div><div class="handle">${esc(p.handle)}</div></div><div class="post-time">${esc(p.time)}</div></div><div class="post-text">${esc(p.text)}</div>${p.tag?`<span class="tag">#${esc(p.tag.replace(/^#/,""))}</span>`:""}<div class="post-actions"><button class="action ${p.liked?'liked':''}" onclick="toggleLike(${p.id})">${p.liked?'♥':'♡'} ${p.likes} Like</button><button class="action" onclick="commentPost(${p.id})">◯ ${p.comments} Comment</button><button class="action" onclick="sharePost(${p.id})">↗ Share</button></div></article>`}
+function render(){
+ const el=document.getElementById("viewContent");
+ const composer=document.getElementById("composer");
+ if(currentView==="home"){composer.style.display="block";el.innerHTML=posts.length?posts.map(postCard).join(""):`<div class="card empty">No posts yet. Be the first to share something!</div>`}
+ else {composer.style.display="none"; let html="";
+ if(currentView==="discover") html=`<h2 class="view-title">Discover your next circle</h2><div class="card post"><h3>🔎 Explore by interest</h3><p class="muted">Find creators, ideas and communities around what you love.</p>${["Design & Art","Learning","Gaming","Music","Small Business","Technology"].map(x=>`<button class="pill" style="margin:4px" onclick="filterTopic('${x}')">${x}</button>`).join("")}</div><h2 class="view-title">Trending posts</h2>${posts.map(postCard).join("")}`;
+ if(currentView==="rooms") html=`<h2 class="view-title">Circle Rooms</h2><div class="card post"><h3>🌐 Find your people</h3><p class="muted">Rooms are community spaces for sharing ideas, learning together and meeting collaborators.</p>${["Study & Focus","Creator Workshop","Indie Builders","Gaming Lounge"].map((x,i)=>`<div class="trend"><b>${["📚","🎨","🚀","🎮"][i]} ${x}</b><small>${[128,86,54,210][i]} members · Preview room</small><button class="pill" onclick="toastMsg('Room joining will be available when accounts and the server are added.')">Preview</button></div>`).join("")}</div>`;
+ if(currentView==="messages") html=`<h2 class="view-title">Messages</h2><div class="card empty"><div style="font-size:36px">💬</div><h3>Your conversations start here</h3><p>Live private messaging needs accounts and a secure backend. This prototype keeps things local.</p><button class="primary" onclick="showView('discover')">Discover people</button></div>`;
+ if(currentView==="earn") html=`<h2 class="view-title">Creator Hub</h2><div class="card post"><h3>💎 Turn your skills into opportunities</h3><p class="muted">The future NEXORA marketplace can help creators offer services, sell digital products and find collaborators.</p><div class="trend"><b>1. Build your portfolio</b><small>Show examples of your work and the skills you offer.</small></div><div class="trend"><b>2. Find collaborators</b><small>Connect with people who complement your skills.</small></div><div class="trend"><b>3. Monetize responsibly</b><small>Payments, payouts, tax handling and seller verification must be built before launch.</small></div><button class="primary" onclick="toastMsg('Creator tools are planned; no real payments are active.')">Notify me (demo)</button></div><div class="card post"><h3>Estimated earnings</h3><p class="muted">₹0.00 · This is a demo display, not real money.</p></div>`;
+ if(currentView==="profile") html=`<section class="card profile-head"><div class="profile-banner"></div><div class="profile-info"><div class="avatar">Y</div><div><h2>Your profile</h2><p>@yourhandle · Creator in progress</p></div></div><p class="muted" style="padding:10px">Add your story, interests and skills when accounts are enabled.</p><button class="pill" onclick="toastMsg('Profile editing will be connected to accounts in the next version.')">Edit profile (demo)</button></section><h2 class="view-title">Your posts</h2>${posts.filter(p=>p.handle==="@you").map(postCard).join("")||`<div class="card empty">Your posts will appear here.</div>`}`;
+ el.innerHTML=html;
+ }
+ document.querySelectorAll("[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===currentView));
+}
+function showView(v){currentView=v;render();window.scrollTo({top:0,behavior:"smooth"})}
+function focusComposer(){showView("home");document.getElementById("postText").focus();document.getElementById("composer").scrollIntoView({behavior:"smooth",block:"center"})}
+function createPost(){const t=document.getElementById("postText").value.trim();const tag=document.getElementById("postTags").value.trim().replace(/^#/,"");if(!t){toastMsg("Write something before publishing.");return}posts.unshift({id:Date.now(),name:"You",handle:"@you",time:"Just now",text:t,tag,likes:0,liked:false,comments:0});save();document.getElementById("postText").value="";document.getElementById("postTags").value="";currentView="home";render();toastMsg("Post published on this device!")}
+function toggleLike(id){const p=posts.find(x=>x.id===id);if(!p)return;p.liked=!p.liked;p.likes+=p.liked?1:-1;save();render()}
+function commentPost(id){const txt=prompt("Add a comment (demo only):");if(txt&&txt.trim()){const p=posts.find(x=>x.id===id);p.comments++;save();render();toastMsg("Comment count updated. Live comments need a server.")}}
+function sharePost(id){const p=posts.find(x=>x.id===id);if(navigator.share){navigator.share({title:"NEXORA post",text:p.text}).catch(()=>{})}else if(navigator.clipboard){navigator.clipboard.writeText(p.text).then(()=>toastMsg("Post text copied."),()=>toastMsg("Share is not supported here."))}else toastMsg("Sharing is not supported in this browser.")}
+function filterTopic(t){toastMsg("Showing interest: "+t+" (topic filtering is a future feature).")}
+function toastMsg(t){const el=document.getElementById("toast");el.textContent=t;el.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.style.display="none",2600)}
+render();
+</script>
+</body>
+</html>
